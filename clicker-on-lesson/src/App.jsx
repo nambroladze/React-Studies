@@ -1,6 +1,9 @@
 import { useState } from "react";
 
 import CounterButton from "./components/CounterButton";
+import CounterDisplay from "./components/CounterDisplay";
+import Header from "./components/Header";
+import Message from "./components/Message";
 
 function App() {
   const [counter, setCounter] = useState(0);
@@ -8,8 +11,11 @@ function App() {
 
   return (
     <>
-      <h1>{projectName}</h1>
-      <h2>Counter: {counter}</h2>
+      <Header projectName={projectName} />
+
+      <CounterDisplay count={counter} />
+
+      <Message count={counter} />
 
       <CounterButton
         title={"Increase"}
@@ -17,6 +23,7 @@ function App() {
           setCounter(counter + 1);
         }}
       />
+
       <CounterButton
         title={"Decrease"}
         handleClick={() => {
