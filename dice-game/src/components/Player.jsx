@@ -1,3 +1,5 @@
+const diceEmojis = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+
 export default function Player({ title, onClick, text, disabled }) {
   let style = baseStyle;
 
