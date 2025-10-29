@@ -1,12 +1,19 @@
 import { useState } from "react";
-import DiceButton from "./components/DiceButton";
+import Player from "./components/Player";
+import WinnerBanner from "./components/WinnerBanner";
 
 function App() {
-  const [player1Dice, setPlayer1Dice] = useState(1);
-  const [player2Dice, setPlayer2Dice] = useState(1);
+  const [player1Dice, setPlayer1Dice] = useState(null);
+  const [player2Dice, setPlayer2Dice] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [winner, setWinner] = useState(null);
 
-  const diceEmojis = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+  const playAgain = () => {
+    setPlayer1Dice(null);
+    setPlayer2Dice(null);
+    setCurrentPlayer(1);
+    setWinner(null);
+  };
 
   const rollDice = () => {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
@@ -16,14 +23,18 @@ function App() {
       setCurrentPlayer(2);
     } else {
       setPlayer2Dice(randomNumber);
-      setCurrentPlayer(1);
+      determineWinner(randomNumber);
     }
   };
 
-  const resetGame = () => {
-    setPlayer1Dice(1);
-    setPlayer2Dice(1);
-    setCurrentPlayer(1);
+  const determineWinner = (player2Roll) => {
+    if (player1Dice > player2Roll) {
+      setWinner("Player 1");
+    } else if (player2Roll > player1Dice) {
+      setWinner("Player 2");
+    } else {
+      setWinner("tie");
+    }
   };
 
   return (
@@ -35,7 +46,9 @@ function App() {
       }}
     >
       <h1>🎲 2-Player Dice Game 🎲</h1>
-
+      <p style={{ fontSize: "20px", margin: "20px 0" }}>
+        {currentPlayer === 1 ? "Player 1's turn!" : "Player 2's turn!"}
+      </p>
       <div
         style={{
           display: "flex",
@@ -44,11 +57,12 @@ function App() {
           margin: "30px 0",
         }}
       >
-        <div>
-          <h3>Player 1</h3>
-          <div style={{ fontSize: "60px" }}>{diceEmojis[player1Dice - 1]}</div>
-          <p>{player1Dice}</p>
-        </div>
+        <Player
+          title={"Player 1"}
+          onClick={rollDice}
+          text={"🎲 Roll Dice"}
+          disabled={currentPlayer !== 1}
+        />
 
         <div
           style={{
@@ -58,19 +72,19 @@ function App() {
           VS
         </div>
 
-        <div>
-          <h3>Player 2</h3>
-          <div style={{ fontSize: "60px" }}>{diceEmojis[player2Dice - 1]}</div>
-          <p>{player2Dice}</p>
-        </div>
+        <Player
+          title={"Player 2"}
+          onClick={rollDice}
+          text={"🎲 Roll Dice"}
+          disabled={currentPlayer !== 2}
+        />
       </div>
-
-      <p style={{ fontSize: "20px", margin: "20px 0" }}>
-        {currentPlayer === 1 ? "Player 1's turn!" : "Player 2's turn!"}
-      </p>
-
-      <DiceButton onClick={rollDice} />
-      <DiceButton text="🔄 Reset" onClick={resetGame} />
+      <WinnerBanner
+        winner={winner}
+        player1Dice={player1Dice}
+        player2Dice={player2Dice}
+        onPlayAgain={playAgain}
+      />
     </div>
   );
 }
