@@ -2,8 +2,8 @@ import { useState } from "react";
 import Player from "./components/Player";
 
 function App() {
-  const [player1, setPlayer1] = useState(1);
-  const [player2, setPlayer2] = useState(1);
+  const [player1, setPlayer1] = useState(null);
+  const [player2, setPlayer2] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(1);
 
   const rollDice = () => {

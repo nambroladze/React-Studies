@@ -1,24 +1,5 @@
 const diceEmojis = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
 
-export default function Player({ title, onClick, text, disabled }) {
-  let style = baseStyle;
-
-  if (disabled) {
-    style = { ...style, ...disabledStyle };
-  }
-
-  return (
-    <div>
-      <h3>{title}</h3>
-      <div style={{ fontSize: "60px" }}>⚀</div>
-
-      <button onClick={onClick} style={style} disabled={disabled}>
-        {text || "🎲 Roll Dice"}
-      </button>
-    </div>
-  );
-}
-
 const baseStyle = {
   margin: "10px",
   padding: "15px 30px",
@@ -35,3 +16,18 @@ const disabledStyle = {
   cursor: "not-allowed",
   opacity: 0.6,
 };
+
+export default function Player({ title, onClick, text, disabled, dice }) {
+  const style = disabled ? { ...baseStyle, ...disabledStyle } : baseStyle;
+  const diceEmoji = dice === null ? diceEmojis[0] : diceEmojis[dice - 1];
+
+  return (
+    <div>
+      <h3>{title}</h3>
+      <div style={{ fontSize: "60px" }}>{diceEmoji}</div>
+      <button onClick={onClick} style={style} disabled={disabled}>
+        {text || "🎲 Roll Dice"}
+      </button>
+    </div>
+  );
+}

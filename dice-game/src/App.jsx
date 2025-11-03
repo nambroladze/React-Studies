@@ -23,6 +23,7 @@ function App() {
       setCurrentPlayer(2);
     } else {
       setPlayer2Dice(randomNumber);
+      setCurrentPlayer(1);
       determineWinner(randomNumber);
     }
   };
@@ -37,6 +38,9 @@ function App() {
     }
   };
 
+  if (winner !== null) {
+    return <WinnerBanner winner={winner} onPlayAgain={playAgain} />;
+  }
   return (
     <div
       style={{
@@ -46,9 +50,11 @@ function App() {
       }}
     >
       <h1>🎲 2-Player Dice Game 🎲</h1>
+
       <p style={{ fontSize: "20px", margin: "20px 0" }}>
         {currentPlayer === 1 ? "Player 1's turn!" : "Player 2's turn!"}
       </p>
+
       <div
         style={{
           display: "flex",
@@ -62,6 +68,7 @@ function App() {
           onClick={rollDice}
           text={"🎲 Roll Dice"}
           disabled={currentPlayer !== 1}
+          dice={player1Dice}
         />
 
         <div
@@ -77,14 +84,9 @@ function App() {
           onClick={rollDice}
           text={"🎲 Roll Dice"}
           disabled={currentPlayer !== 2}
+          dice={player2Dice}
         />
       </div>
-      <WinnerBanner
-        winner={winner}
-        player1Dice={player1Dice}
-        player2Dice={player2Dice}
-        onPlayAgain={playAgain}
-      />
     </div>
   );
 }
