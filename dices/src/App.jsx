@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Player from "./components/Player";
+import WinnerBanner from "./components/WinnerBanner";
 
 function App() {
   const [player1, setPlayer1] = useState(null);
   const [player2, setPlayer2] = useState(null);
   const [currentPlayer, setCurrentPlayer] = useState(1);
+  const [winner, setWinner] = useState(null);
 
   const rollDice = () => {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
@@ -15,7 +17,25 @@ function App() {
     } else {
       setPlayer2(randomNumber);
       setCurrentPlayer(1);
+      determineWinner(randomNumber);
     }
+  };
+
+  const determineWinner = (player2Rolled) => {
+    if (player1 > player2Rolled) {
+      setWinner("Player 1");
+    } else if (player2Rolled > player1) {
+      setWinner("Player 2");
+    } else {
+      setWinner("tie");
+    }
+  };
+
+  const playAgain = () => {
+    setPlayer1(null);
+    setPlayer2(null);
+    setCurrentPlayer(1);
+    setWinner(null);
   };
 
   return (
@@ -24,11 +44,22 @@ function App() {
         textAlign: "center",
         padding: "20px",
         margin: 0,
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
       }}
     >
       <h1>2-Player Dice Game</h1>
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "40px",
+          alignItems: "center",
+          marginTop: "40px",
+        }}
+      >
         <Player
           title={"Player 1"}
           index={player1}
@@ -36,7 +67,7 @@ function App() {
           isDisabled={currentPlayer === 2}
         />
 
-        <div>VS</div>
+        <div style={{ fontSize: "40px" }}>VS</div>
 
         <Player
           title={"Player 2"}
@@ -45,6 +76,7 @@ function App() {
           isDisabled={currentPlayer === 1}
         />
       </div>
+      <WinnerBanner winner={winner} onPlayAgain={playAgain} />
     </div>
   );
 }
