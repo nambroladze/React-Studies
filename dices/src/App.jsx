@@ -42,10 +42,16 @@ function App() {
     }
   };
 
-  const playAgain = () => {
+  const playnNextRound = () => {
     setPlayer1(null);
     setPlayer2(null);
     setRound(round + 1);
+  };
+
+  const playAgain = () => {
+    setPlayer1(null);
+    setPlayer2(null);
+    setRound(1);
   };
 
   if (isGameOver) {
@@ -156,7 +162,7 @@ function App() {
       {winner() && (
         <WinnerBanner
           winner={winner()}
-          onPlayAgain={playAgain}
+          onPlayAgain={playnNextRound}
           rounds={round}
         />
       )}
