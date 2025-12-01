@@ -5,12 +5,20 @@ const initialGameBoard = [
   [null, null, null],
   [null, null, null],
 ];
-export default function GameBoard() {
+
+export default function GameBoard({ currentPlayer, onSquareSeelct }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
-  function handlePlayClick(colIndex, rowIndex) {
-    setGameBoard((prevGameBoard) => {});
+  function handleSquareSelect(rowIndex, colIndex) {
+    setGameBoard((prevValue) => {
+      const updatedBoard = [...prevValue.map((row) => [...row])];
+      updatedBoard[rowIndex][colIndex] = currentPlayer;
+      return updatedBoard;
+    });
+
+    onSquareSeelct();
   }
+
   return (
     <ol id="game-board">
       {gameBoard.map((row, rowIndex) => (
@@ -18,11 +26,8 @@ export default function GameBoard() {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button
-                  onClick={() => handlePlayClick(colIndex, rowIndex)}
-                  disabled={playerSymbol.value !== null}
-                >
-                  {playerSymbol.value}
+                <button onClick={() => handleSquareSelect(rowIndex, colIndex)}>
+                  {playerSymbol}
                 </button>
               </li>
             ))}
