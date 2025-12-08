@@ -3,10 +3,17 @@ import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
 
-function App() {
-  const [activePlayer, setActivePlayer] = useState("X");
+const deriveActivePlayer = (gameTurns) => {
+  return gameTurns.length % 2 === 0 ? "X" : "O";
+};
 
-  function handleCurrentPlayerChange() {
+function App() {
+  const [gameTurns, setGameTurns] = useState([]);
+  const activePlayer = deriveActivePlayer(gameTurns);
+
+  console.log(activePlayer);
+
+  function handleCurrentPlayerChange(rowIndex, colIndex) {
     // setActivePlayer((prevValue) => (prevValue === "X" ? "O" : "X"));
     // {მოვიფიქროთ როგორ შევინახოთ სვლები და დავლოგოთ კონსოლში}
     // {ვეცადოთ ავარიდოთ თავი state-ების ერთამნეთში არევას}
@@ -14,7 +21,15 @@ function App() {
     // {Logs component-ში დავლოგოთ სვლები}
     // {GameBoard component-ში დავმატოთ gameTurns პარამეტრი და დავმეპოთ სვლები, მოვაშოროთ ზედმეტი state-ის გამოყენება}
 
-    setActivePlayer((prevValue) => (prevValue === "X" ? "O" : "X"));
+    setGameTurns((prevValue) => {
+      let currentPlayer = deriveActivePlayer(prevValue);
+
+      const newTurn = {
+        square: { rowIndex, colIndex },
+        player: currentPlayer,
+      };
+      return [newTurn, ...prevValue];
+    });
   }
 
   return (
@@ -33,12 +48,12 @@ function App() {
           />
         </ol>
         <GameBoard
-          onSquareSeelct={handleCurrentPlayerChange}
+          onSquareSelect={handleCurrentPlayerChange}
           activePlayer={activePlayer}
         />
       </div>
 
-      <Log />
+      <Log gameTurns={gameTurns} />
     </main>
   );
 }

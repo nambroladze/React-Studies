@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const initialGameBoard = [
   [null, null, null],
@@ -6,18 +6,22 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard({ currentPlayer, onSquareSeelct }) {
+export default function GameBoard({ activePlayer, onSquareSelect }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   function handleSquareSelect(rowIndex, colIndex) {
     setGameBoard((prevValue) => {
       const updatedBoard = [...prevValue.map((row) => [...row])];
-      updatedBoard[rowIndex][colIndex] = currentPlayer;
+      updatedBoard[rowIndex][colIndex] = activePlayer;
       return updatedBoard;
     });
 
-    onSquareSeelct();
+    onSquareSelect(rowIndex, colIndex);
   }
+
+  useEffect(() => {
+    console.log(gameBoard);
+  }, [gameBoard]);
 
   return (
     <ol id="game-board">
@@ -26,7 +30,10 @@ export default function GameBoard({ currentPlayer, onSquareSeelct }) {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => handleSquareSelect(rowIndex, colIndex)}>
+                <button
+                  onClick={() => handleSquareSelect(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
+                >
                   {playerSymbol}
                 </button>
               </li>
