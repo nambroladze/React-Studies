@@ -11,8 +11,6 @@ function App() {
   const [gameTurns, setGameTurns] = useState([]);
   const activePlayer = deriveActivePlayer(gameTurns);
 
-  console.log(activePlayer);
-
   function handleSquareSelect(rowIndex, colIndex) {
     // setActivePlayer((prevValue) => (prevValue === "X" ? "O" : "X"));
     // {მოვიფიქროთ როგორ შევინახოთ სვლები და დავლოგოთ კონსოლში}
@@ -22,7 +20,7 @@ function App() {
     // {GameBoard component-ში დავმატოთ gameTurns პარამეტრი და დავმეპოთ სვლები, მოვაშოროთ ზედმეტი state-ის გამოყენება}
 
     setGameTurns((prevValue) => {
-      let currentPlayer = prevValue.length % 2 === 0 ? "X" : "O";
+      let currentPlayer = deriveActivePlayer(prevValue);
 
       const newTurn = {
         square: { rowIndex, colIndex },
