@@ -70,6 +70,7 @@ function App() {
             symbol="O"
           />
         </ol>
+        {ვიძახებთ GameOver კომპონენეტს}
         <GameBoard onSquareSelect={handleSquareSelect} gameBoard={gameBoard} />
       </div>
 
