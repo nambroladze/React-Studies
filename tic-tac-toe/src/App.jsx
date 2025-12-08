@@ -2,6 +2,13 @@ import { useState } from "react";
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import Log from "./components/Log";
+import { WINNING_COMBINATIONS } from "./winning-combinations";
+
+const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
 
 const deriveActivePlayer = (gameTurns) => {
   return gameTurns.length % 2 === 0 ? "X" : "O";
@@ -11,14 +18,32 @@ function App() {
   const [gameTurns, setGameTurns] = useState([]);
   const activePlayer = deriveActivePlayer(gameTurns);
 
-  function handleSquareSelect(rowIndex, colIndex) {
-    // setActivePlayer((prevValue) => (prevValue === "X" ? "O" : "X"));
-    // {მოვიფიქროთ როგორ შევინახოთ სვლები და დავლოგოთ კონსოლში}
-    // {ვეცადოთ ავარიდოთ თავი state-ების ერთამნეთში არევას}
-    // {დავაკრვირდეთ და ავირიდოთ ერიდაიგივე ინფორმაციის შენახვა თავიდან}
-    // {Logs component-ში დავლოგოთ სვლები}
-    // {GameBoard component-ში დავმატოთ gameTurns პარამეტრი და დავმეპოთ სვლები, მოვაშოროთ ზედმეტი state-ის გამოყენება}
+  const gameBoard = initialGameBoard;
 
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { rowIndex, colIndex } = square;
+    gameBoard[rowIndex][colIndex] = player;
+  }
+
+  let winner = null;
+
+  for (const combination of WINNING_COMBINATIONS) {
+    const firstSymbol = gameBoard[combination[0].row][combination[0].column];
+    const secondSymbol = gameBoard[combination[1].row][combination[1].column];
+    const thirdSymbol = gameBoard[combination[2].row][combination[2].column];
+    if (
+      firstSymbol &&
+      firstSymbol === secondSymbol &&
+      firstSymbol === thirdSymbol
+    ) {
+      winner = firstSymbol;
+    }
+  }
+
+  const hasDraw = gameTurns.length === 9 && !winner;
+
+  function handleSquareSelect(rowIndex, colIndex) {
     setGameTurns((prevValue) => {
       let currentPlayer = deriveActivePlayer(prevValue);
 
@@ -45,7 +70,7 @@ function App() {
             symbol="O"
           />
         </ol>
-        <GameBoard onSquareSelect={handleSquareSelect} gameTurns={gameTurns} />
+        <GameBoard onSquareSelect={handleSquareSelect} gameBoard={gameBoard} />
       </div>
 
       <Log gameTurns={gameTurns} />
