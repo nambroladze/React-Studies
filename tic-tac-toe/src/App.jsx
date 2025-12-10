@@ -27,6 +27,7 @@ function App() {
   }
 
   let winner = null;
+  const hasDraw = null;
 
   for (const combination of WINNING_COMBINATIONS) {
     const firstSymbol = gameBoard[combination[0].row][combination[0].column];
@@ -38,10 +39,9 @@ function App() {
       firstSymbol === thirdSymbol
     ) {
       winner = firstSymbol;
+      hasDraw = true;
     }
   }
-
-  const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSquareSelect(rowIndex, colIndex) {
     setGameTurns((prevValue) => {
@@ -58,6 +58,7 @@ function App() {
   return (
     <main>
       <div id="game-container">
+        {(winner || hasDraw) && <p>Winner: {winner}</p>}
         <ol id="players" className="highlight-player">
           <Player
             isActive={activePlayer === "X"}
@@ -70,7 +71,7 @@ function App() {
             symbol="O"
           />
         </ol>
-        {ვიძახებთ GameOver კომპონენეტს}
+        {/* {ვიძახებთ GameOver კომპონენეტს} */}
         <GameBoard onSquareSelect={handleSquareSelect} gameBoard={gameBoard} />
       </div>
 
