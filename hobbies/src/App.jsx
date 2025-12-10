@@ -1,7 +1,4 @@
-import { useState } from "react";
 import "./App.css";
-import HobbyList from "./components/HobbyList";
-import FavoriteHobbies from "./components/FavoriteHobbies";
 
 function App() {
   return (
@@ -13,14 +10,12 @@ function App() {
           placeholder="Enter a new hobby..."
           className="hobby-input"
         />
-        <button onClick={handleAddHobby} className="save-button">
-          Save
-        </button>
+        <button className="save-button">Save</button>
       </div>
 
       <div className="container">
-        <HobbyList />
-        <FavoriteHobbies h />
+        {/* <HobbyList />
+        <FavoriteHobbies h /> */}
       </div>
     </div>
   );
