@@ -1,0 +1,142 @@
+.app-container {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  max-width: 600px;
+  margin: 0;
+  padding: 2rem;
+  border-radius: 16px;
+  background: #111827;
+  color: #e5e7eb;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.player-header {
+  text-align: center;
+}
+
+.player-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fbbf24;
+}
+
+.player-name {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: #e5e7eb;
+}
+
+.player-level {
+  margin-top: 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #a5b4fc;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #020617;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #1f2937;
+}
+
+.stats-card h2,
+.controls-card h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.label {
+  font-weight: 600;
+  color: #9ca3af;
+  margin-right: 0.5rem;
+}
+
+.badge {
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+
+.max-level {
+  background-color: #22c55e33;
+  color: #4ade80;
+}
+
+.next-level {
+  background-color: #2563eb33;
+  color: #60a5fa;
+}
+
+.hint {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.hard-mode-text {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #f97316;
+}
+
+.buttons-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+button {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-button {
+  background: #1f2937;
+  color: #e5e7eb;
+}
+
+.toggle-button.active {
+  background: #f97316;
+  color: #111827;
+}
+
+.reset-button {
+  background: #ef4444;
+  color: #f9fafb;
+}

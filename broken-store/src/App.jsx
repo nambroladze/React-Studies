@@ -52,7 +52,6 @@ function App() {
         onRemove={removeFromCart}
         onUpdateQuantity={updateQuantity}
       />
-
       <Store onAddToCart={addToCart} />
     </div>
   );
