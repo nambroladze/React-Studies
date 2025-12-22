@@ -38,6 +38,22 @@ function App() {
     }
   };
 
+  const handleBackToStore = () => {
+    setShowCart(false);
+  };
+
+  let content = <Store onAddToCart={addToCart} />;
+  if (showCart) {
+    content = (
+      <Cart
+        cart={cart}
+        onRemove={removeFromCart}
+        onUpdateQuantity={updateQuantity}
+        onBackToStore={handleBackToStore}
+      />
+    );
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -46,13 +62,7 @@ function App() {
           View Cart ({cart.reduce((sum, item) => sum + item.quantity, 0)})
         </button>
       </header>
-
-      <Cart
-        cart={cart}
-        onRemove={removeFromCart}
-        onUpdateQuantity={updateQuantity}
-      />
-      <Store onAddToCart={addToCart} />
+      {content}
     </div>
   );
 }

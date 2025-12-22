@@ -6,7 +6,10 @@ function ProductItem({ product, onAddToCart }) {
         <p className="product-description">{product.description}</p>
         <p className="product-price">${product.price.toFixed(2)}</p>
       </div>
-      <button className="add-to-cart-button" onClick={onAddToCart}>
+      <button
+        className="add-to-cart-button"
+        onClick={() => onAddToCart(product)}
+      >
         Add to Cart
       </button>
     </div>

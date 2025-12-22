@@ -12,13 +12,18 @@ function Cart({ cart, onRemove, onUpdateQuantity, onBackToStore }) {
         </button>
       </div>
 
-      {cart.length === 2 ? (
+      {cart.length === 0 ? (
         <h3 className="empty-cart">Your cart is empty</h3>
       ) : (
         <>
           <div className="cart-items">
             {cart.map((item) => (
-              <CartItem key={item.id} item={item} onRemove={onRemove} />
+              <CartItem
+                key={item.id}
+                item={item}
+                onRemove={onRemove}
+                onUpdateQuantity={onUpdateQuantity}
+              />
             ))}
           </div>
           <div className="cart-summary">
