@@ -3,15 +3,18 @@ import { useState } from "react";
 export default function QuizPage({ questions }) {
   const [index, setIndex] = useState(0);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [isLcoked, setIsLcoked] = useState(false);
 
   const currentQuestionData = questions[index];
 
   const handleAnswerClick = (index) => {
     setSelectedAnswerIndex(index);
+    setIsLcoked(true);
 
     setTimeout(() => {
       setIndex((prev) => prev + 1);
       setSelectedAnswerIndex(null);
+      setIsLcoked(false);
     }, 2000);
   };
 
@@ -38,6 +41,7 @@ export default function QuizPage({ questions }) {
             key={index}
             onClick={() => handleAnswerClick(index)}
             className={className}
+            disabled={isLcoked}
           >
             {answer}
           </button>
