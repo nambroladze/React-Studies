@@ -1,11 +1,16 @@
 import { useState } from "react";
 import QuizPage from "./components/QuizPage";
+import { QUIZ_DATA } from "./quiz-questions";
 
 export default function App() {
-  const [difficulty, setDifficulty] = useState(null);
+  const [questions, setQuestions] = useState(null);
 
-  if (difficulty !== null) {
-    return <QuizPage />;
+  if (questions !== null) {
+    return <QuizPage questions={questions} />;
+  }
+
+  function getQuestions(difficulty) {
+    setQuestions(QUIZ_DATA.filter((q) => q.difficulty === difficulty));
   }
 
   return (
@@ -13,24 +18,21 @@ export default function App() {
       <h1>Welcome to the Game</h1>
       <button
         onClick={() => {
-          setDifficulty("easy");
-          console.log(difficulty);
+          getQuestions("Easy");
         }}
       >
         Easy
       </button>
       <button
         onClick={() => {
-          setDifficulty("medium");
-          console.log(difficulty);
+          getQuestions("Medium");
         }}
       >
         Medium
       </button>
       <button
         onClick={() => {
-          setDifficulty("hard");
-          console.log(difficulty);
+          getQuestions("Hard");
         }}
       >
         Hard
@@ -38,7 +40,3 @@ export default function App() {
     </>
   );
 }
-
-// ფუნქიონალი გვინდა რომ ავირჩიოთ დონე {easy, medium, hard}, +
-// სანამ დონე არ არის არჩეული მანამდე კითვა არ ჩანს,
-// გვაქ ასევე კითხვები: კითხვა გამოიტანოს, და ასევე გამოიტანოს 4 პასუხი რომელიც ექნება იუზერს ასარჩევად დანუ რათქმუნდა პასუხის გაცემის შემდეგ გდავიდთ შემდეგ კითხვაზე.
