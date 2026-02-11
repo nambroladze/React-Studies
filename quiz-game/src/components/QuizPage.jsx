@@ -1,6 +1,9 @@
 import { useState } from "react";
+import classes from "./QuizPage.module.css";
 
 export default function QuizPage({ questions }) {
+  console.log(classes);
+
   const [index, setIndex] = useState(0);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [isLcoked, setIsLcoked] = useState(false);
@@ -40,7 +43,7 @@ export default function QuizPage({ questions }) {
           <button
             key={index}
             onClick={() => handleAnswerClick(index)}
-            className={className}
+            className={classes["answer-button"]}
             disabled={isLcoked}
           >
             {answer}
