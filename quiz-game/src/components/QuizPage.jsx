@@ -43,7 +43,7 @@ export default function QuizPage({ questions }) {
           <button
             key={index}
             onClick={() => handleAnswerClick(index)}
-            className={classes["answer-button"]}
+            className={className}
             disabled={isLcoked}
           >
             {answer}
